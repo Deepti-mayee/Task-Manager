@@ -4,6 +4,7 @@ import TaskList from './components/TaskList';
 import TaskForm from './components/TaskForm';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import './App.css';
 
 function App() {
     const [tasks, setTasks] = useState([]);
