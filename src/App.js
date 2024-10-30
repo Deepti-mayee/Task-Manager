@@ -1,5 +1,5 @@
 // App.js
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import TaskList from './components/TaskList';
 import TaskForm from './components/TaskForm';
 import { ToastContainer, toast } from 'react-toastify';
@@ -19,21 +19,25 @@ function App() {
         toast.info('Task updated successfully!');
     };
 
-    useEffect(()=>{
-      const interval = setInterval(()=>{
-        setTasks((prevTasks)=>{
-          return [...prevTasks];
-        })
-      },30000);
+    const deleteTask = (taskId) => {
+        setTasks(tasks.filter(task => task.id !== taskId));
+        toast.error('Task deleted successfully!');
+    };
 
-      return()=> clearInterval(interval);
+    // Polling Effect for Real-Time Updates
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setTasks((prevTasks) => [...prevTasks]); // Simulate task update
+        }, 30000);
+
+        return () => clearInterval(interval); // Cleanup on unmount
     }, []);
 
     return (
         <div>
             <h1>Real-Time Task Manager</h1>
             <TaskForm onSubmit={addTask} />
-            <TaskList tasks={tasks} onUpdate={updateTask} />
+            <TaskList tasks={tasks} onUpdate={updateTask} onDelete={deleteTask} />
             <ToastContainer position="bottom-right" autoClose={3000} />
         </div>
     );

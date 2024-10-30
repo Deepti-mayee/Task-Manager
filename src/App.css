@@ -131,3 +131,14 @@ button:hover{
 .editing button{
   background-color: #28a745;
 }
+
+.delete-button{
+  background-color: #dc3545;
+  color: #fff;
+  border: none;
+  margin-left: 10px;
+}
+
+.delete-button:hover{
+  background-color: #c82333;
+}
