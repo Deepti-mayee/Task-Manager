@@ -1,5 +1,5 @@
 // App.js
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import TaskList from './components/TaskList';
 import TaskForm from './components/TaskForm';
 import { ToastContainer, toast } from 'react-toastify';
@@ -18,6 +18,16 @@ function App() {
         setTasks(tasks.map(task => task.id === updatedTask.id ? updatedTask : task));
         toast.info('Task updated successfully!');
     };
+
+    useEffect(()=>{
+      const interval = setInterval(()=>{
+        setTasks((prevTasks)=>{
+          return [...prevTasks];
+        })
+      },30000);
+
+      return()=> clearInterval(interval);
+    }, []);
 
     return (
         <div>
