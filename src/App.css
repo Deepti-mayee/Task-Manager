@@ -124,9 +124,15 @@ button:hover{
 
 .editing input,
 .editing textarea{
-  border: 1px solid #007bff;
-  outline: none;
+  width: 100%;
+    padding: 8px;
+    margin-bottom: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
 }
+
+
 
 .editing button{
   background-color: #28a745;
@@ -135,10 +141,54 @@ button:hover{
 .delete-button{
   background-color: #dc3545;
   color: #fff;
-  border: none;
   margin-left: 10px;
 }
 
 .delete-button:hover{
   background-color: #c82333;
+}
+
+.pending{
+  color: #dc3545;
+}
+
+.completed {
+  color: #28a745;
+}
+
+button{
+  margin-right:10px;
+}
+
+.edit-input, .edit-textarea {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.edit-textarea {
+  resize: none;
+  height: 60px;
+}
+
+.save-button, .cancel-button {
+  padding: 8px 12px;
+  margin-right: 8px;
+  font-size: 14px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.save-button {
+  background-color: #28a745;
+  color: #ffffff;
+}
+
+.cancel-button {
+  background-color: #6c757d;
+  color: #ffffff;
 }

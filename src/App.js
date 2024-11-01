@@ -24,6 +24,13 @@ function App() {
         toast.error('Task deleted successfully!');
     };
 
+    const toggleTaskStatus = (taskId) => {
+      setTasks(tasks.map(task => 
+        task.id === taskId ? { ...task, status: task.status === "Pending" ? "Completed" : "Pending" } : task
+        ));
+        toast.info('Task status updated!')
+    }
+
     // Polling Effect for Real-Time Updates
     useEffect(() => {
         const interval = setInterval(() => {
@@ -37,7 +44,7 @@ function App() {
         <div>
             <h1>Real-Time Task Manager</h1>
             <TaskForm onSubmit={addTask} />
-            <TaskList tasks={tasks} onUpdate={updateTask} onDelete={deleteTask} />
+            <TaskList tasks={tasks} onUpdate={updateTask} onDelete={deleteTask} onToggleStatus={toggleTaskStatus} />
             <ToastContainer position="bottom-right" autoClose={3000} />
         </div>
     );
