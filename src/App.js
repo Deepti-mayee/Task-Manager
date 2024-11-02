@@ -9,25 +9,44 @@ import './App.css';
 function App() {
     const [tasks, setTasks] = useState([]);
 
+    useEffect(() => {
+        let recentTasks = JSON.parse(localStorage?.getItem("tasks")) || [];
+        setTasks(recentTasks);
+    }, []);
+
     const addTask = (task) => {
         setTasks([...tasks, { ...task, id: Date.now() }]);
+        let recentTasks = JSON.parse(localStorage?.getItem("tasks")) || [];
+        recentTasks?.push({ ...task, id: Date.now() })
+        localStorage.setItem("tasks", JSON.stringify(recentTasks));
         toast.success('Task added successfully!');
     };
 
     const updateTask = (updatedTask) => {
-        setTasks(tasks.map(task => task.id === updatedTask.id ? updatedTask : task));
-        toast.info('Task updated successfully!');
+        setTasks(tasks?.map(task => task.id === updatedTask.id ? updatedTask : task));
+        let recentTasks = JSON.parse(localStorage?.getItem("tasks"));
+        recentTasks = recentTasks?.map(task => task.id === updatedTask.id ? updatedTask : task);
+        localStorage.setItem("tasks", JSON.stringify(recentTasks));
+        toast.success('Task updated successfully!');
     };
 
     const deleteTask = (taskId) => {
-        setTasks(tasks.filter(task => task.id !== taskId));
+        setTasks(tasks?.filter(task => task.id !== taskId));
+        let recentTasks = JSON.parse(localStorage?.getItem("tasks"));
+        recentTasks = recentTasks?.filter(task => task.id !== taskId);
+        localStorage.setItem("tasks", JSON.stringify(recentTasks));
         toast.error('Task deleted successfully!');
     };
 
     const toggleTaskStatus = (taskId) => {
-      setTasks(tasks.map(task => 
-        task.id === taskId ? { ...task, status: task.status === "Pending" ? "Completed" : "Pending" } : task
+        setTasks(tasks?.map(task =>
+            task.id === taskId ? { ...task, status: task.status === "Pending" ? "Completed" : "Pending" } : task
         ));
+        let recentTasks = JSON.parse(localStorage?.getItem("tasks"));
+        recentTasks = recentTasks?.map(task =>
+            task.id === taskId ? { ...task, status: task.status === "Pending" ? "Completed" : "Pending" } : task
+        );
+        localStorage.setItem("tasks", JSON.stringify(recentTasks));
         toast.info('Task status updated!')
     }
 
@@ -41,7 +60,7 @@ function App() {
     }, []);
 
     return (
-        <div>
+        <div className='taskContainer'>
             <h1>Real-Time Task Manager</h1>
             <TaskForm onSubmit={addTask} />
             <TaskList tasks={tasks} onUpdate={updateTask} onDelete={deleteTask} onToggleStatus={toggleTaskStatus} />
